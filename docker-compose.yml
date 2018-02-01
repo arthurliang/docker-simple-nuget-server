@@ -1,0 +1,25 @@
+version: "3.4"
+services:
+
+  nuget:
+    image: arthurliang/docker-simple-nuget-server
+    environment:
+      NUGET_API: "test"
+      NUGET_HOST: "localhost"
+      MYSQL_HOST: "mysql"
+      MYSQL_PORT: "3306"
+      MYSQL_DB_NAME: "nugetdb"
+      MYSQL_USER: "nugetuser"
+      MYSQL_PW: "nuget-pw"
+    ports:
+      - '34500:80'
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysqlRoot.pw
+      - MYSQL_DATABASE=nugetdb
+      - MYSQL_USER=nugetuser
+      - MYSQL_PASSWORD=nuget-pw
